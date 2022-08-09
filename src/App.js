@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import Auth from './pages/Auth';
 import { getToken } from "./utils/token";
 import AuthContext from "./context/AuthContext";
+import Home from "./pages/Home";
 
 // Crearemos un Context API para poder actualizar el estado setAuth sin tener 
 // que recargar toda la app
@@ -60,7 +61,7 @@ export default function App() {
           <ApolloProvider client={client}>
                <AuthContext.Provider value={authData}>
 
-                    {!auth ? <Auth /> : <h1>Estas logeado</h1>}
+                    {!auth ? <Auth /> : <Home />}
 
                     <ToastContainer
                          position="top-right"

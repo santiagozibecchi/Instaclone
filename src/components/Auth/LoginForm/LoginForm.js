@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useMutation } from '@apollo/client';
 import { LOGIN } from '../../../gql/user';
-import { setToken } from '../../../utils/token';
+import { setToken, decodeToken } from '../../../utils/token';
 import './LoginForm.scss';
 import useAuth from '../../../hooks/useAuth';
 
@@ -50,7 +50,8 @@ const LoginForm = () => {
                     console.log(token);
                     // Ejecutamos la funcion para guardar el token en el navegador
                     setToken(token);
-                    setUser(token);
+                    // Le pasamos al estado global de la app, el token decodificado.
+                    setUser(decodeToken(token));
 
                } catch (error) {
                     setError(error.message)
