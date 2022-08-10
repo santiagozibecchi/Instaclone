@@ -3,7 +3,7 @@ import client from "./config/apollo";
 import { ApolloProvider } from '@apollo/client';
 import { ToastContainer } from 'react-toastify';
 import Auth from './pages/Auth';
-import { getToken } from "./utils/token";
+import { getToken, decodeToken } from "./utils/token";
 import AuthContext from "./context/AuthContext";
 import Navigation from "./routes/Navigation";
 
@@ -27,7 +27,7 @@ export default function App() {
           if (!token) { /* Si no viene el token es null (true) */
                setAuth(null);
           } else { /* Si token tiene valor */
-               setAuth(token);
+               setAuth(decodeToken(token));
           }
      }, []);
 
