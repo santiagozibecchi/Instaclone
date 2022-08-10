@@ -56,6 +56,10 @@ export default function App() {
           }), [auth]
      );
 
+     // Le damos un valor distinto para que despues para poder indentificarlo 
+     // y retornar null en caso de que nuestro efecto no se haya ejecutado todavia
+     if (auth === undefined) return null; /* Evitamos en flash al recargar */
+
      return (
 
           <ApolloProvider client={client}>
