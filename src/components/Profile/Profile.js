@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client'; /* Para hacer el get de los usuarios 
 import { GET_USER } from '../../gql/user';
 import ImageNoFound from '../../assets/png/avatar.png';
 import './Profile.scss';
+import UserNotFound from '../UserNotFound';
 
 const Profile = (props) => {
 
@@ -16,7 +17,7 @@ const Profile = (props) => {
      // porque todavia se esta resolviendo la peticion 
 
      if (loading) return null; /* con esto controlamos en renderizado del componente... Si esta cargado no hace nada */
-     if (error) return <h1>Usuario no encontrado</h1>
+     if (error) return <UserNotFound />
 
      const { getUser } = data;
      console.log(getUser)
