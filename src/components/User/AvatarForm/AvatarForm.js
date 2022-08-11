@@ -1,16 +1,49 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Button } from 'semantic-ui-react';
+import { useDropzone } from 'react-dropzone';
+import { useMutation } from '@apollo/client';
+import { UPDATE_AVATAR } from '../../../gql/user';
 import './AvatarForm.scss';
 
 const AvatarForm = ({ setShowModal }) => {
 
+     const [updateAvatar] = useMutation(UPDATE_AVATAR);
 
+     const onDrop = useCallback(async (acceptedFile) => {
+          const file = acceptedFile[0];
+
+          // Peticion al servidor
+          try {
+               console.log(file);
+               const result = await updateAvatar({
+                    variables: { file }
+               })
+
+               console.log(result);
+
+          } catch (error) {
+               console.log(error);
+          }
+
+
+     }, []);
+
+     const { getRootProps, getInputProps } = useDropzone({
+          accept: {
+               'image/jpg': ['.jpg'],
+               'image/png': ['.png'],
+          },
+          noKeyboard: true,
+          multiple: false,
+          onDrop
+     });
 
      return (
           <div className='avatar-form'>
-               <Button>Cargar una foto</Button>
+               <Button {...getRootProps()}>Cargar una foto</Button>
                <Button>Eliminar foto actual</Button>
                <Button onClick={() => setShowModal(false)}>Cancelar</Button>
+               <input {...getInputProps()} />
           </div>
      )
 }
