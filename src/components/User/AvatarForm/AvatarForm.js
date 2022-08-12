@@ -14,7 +14,7 @@ const AvatarForm = ({ setShowModal }) => {
 
           // Peticion al servidor
           try {
-               console.log(file);
+               // console.log(file);
                const result = await updateAvatar({
                     variables: { file }
                })
