@@ -38,3 +38,19 @@ export const UPDATE_AVATAR = gql`
                urlAvatar
      }
 }`;
+
+// Todas estas son peticiones que le pedimos al servidor para que las ejecute
+export const DELETE_AVATAR = gql`
+     mutation deleteAvatar{
+          deleteAvatar
+}`;
+
+// Ejemplo del objeto que devuelve
+// Este objeto recibe el cliente haciendo uso del hook useMutation
+// {
+//      "data": {
+//           "deleteAvatar": true
+//      }
+// }
+
+
