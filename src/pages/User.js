@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import Profile from '../components/Profile';
+import Profile from '../components/User/Profile';
 
 // A esta pagina de user, lo vamos a dividir en dos componentes 
 // Componente Profile donde se va a encontrar todos los datos del usuario=> Persona que seguimos, que nos siguen, etc
