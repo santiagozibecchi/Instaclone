@@ -3,7 +3,7 @@ import client from "./config/apollo";
 import { ApolloProvider } from '@apollo/client';
 import { ToastContainer } from 'react-toastify';
 import Auth from './pages/Auth';
-import { getToken, decodeToken } from "./utils/token";
+import { getToken, decodeToken, removeToken } from "./utils/token";
 import AuthContext from "./context/AuthContext";
 import Navigation from "./routes/Navigation";
 
@@ -35,7 +35,8 @@ export default function App() {
 
      // Funcion para deslogear el usuario desde cualquier parte de la app.
      const logout = () => {
-          console.log('cerrar sesion');
+          removeToken();
+          setAuth(null); /* seteamos el estado */
      };
 
      // Actualiza el usuario logeado
