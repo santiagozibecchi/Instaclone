@@ -6,6 +6,7 @@ import useAuth from '../../../hooks/useAuth';
 import PasswordForm from '../PasswordForm';
 import EmailForm from '../EmailForm';
 import DescriptionForm from '../DescriptionForm';
+import SitioWebForm from '../SitioWebForm';
 import './SettingsForm.scss';
 
 const SettingsForm = ({ setShowModal, setTitleModal, setChildrenModal, getUser, refetch }) => {
@@ -13,7 +14,7 @@ const SettingsForm = ({ setShowModal, setTitleModal, setChildrenModal, getUser, 
      const history = useHistory();
      const client = useApolloClient();
      const { logout } = useAuth();
-     
+
 
      // Funcion para actualizar el modal y mostrar el nuevo comp. para cambiar password
      const onChangePassword = () => {
@@ -36,10 +37,21 @@ const SettingsForm = ({ setShowModal, setTitleModal, setChildrenModal, getUser, 
 
      const onChangeDescription = () => {
           setTitleModal('Cambiar la bibliografia'); /* Titulo del modal */
-          setChildrenModal( 
+          setChildrenModal(
                < DescriptionForm
                     setShowModal={setShowModal}
                     currentDescription={getUser.description}
+                    refetch={refetch}
+               />
+          );
+     };
+
+     const onChangeWebSite = () => {
+          setTitleModal('Cambiar sitio Web'); /* Titulo del modal */
+          setChildrenModal(
+               < SitioWebForm
+                    setShowModal={setShowModal}
+                    currentWebSite={getUser.siteWeb}
                     refetch={refetch}
                />
           );
@@ -57,7 +69,7 @@ const SettingsForm = ({ setShowModal, setTitleModal, setChildrenModal, getUser, 
                <Button onClick={onChangePassword}>Cambiar Contraseña</Button>
                <Button onClick={onChangeEmail}>Cambiar Email</Button>
                <Button onClick={onChangeDescription}>Cambiar Descripción</Button>
-               <Button >Sitio Web</Button>
+               <Button onClick={onChangeWebSite}>Sitio Web</Button>
                <Button onClick={onLogout}>Cerrar Sesion</Button>
                <Button onClick={() => setShowModal(false)}>Cancelar</Button>
 
