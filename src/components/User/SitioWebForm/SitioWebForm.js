@@ -13,7 +13,7 @@ const SitioWebForm = ({ setShowModal, currentWebSite, refetch }) => {
 
      const formik = useFormik({
           initialValues: {
-               siteWeb: currentWebSite
+               siteWeb: currentWebSite || ''
           },
           validationSchema: Yup.object({
                siteWeb: Yup.string().required()
@@ -48,7 +48,7 @@ const SitioWebForm = ({ setShowModal, currentWebSite, refetch }) => {
                     name='siteWeb'
                     value={formik.values.siteWeb}
                     onChange={formik.handleChange}
-                    className={formik.errors.siteWeb && 'error'}
+                    error={formik.errors.siteWeb && true}
                />
 
                <Button type='submit' className='btn-submit'>
