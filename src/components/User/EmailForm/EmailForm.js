@@ -9,7 +9,7 @@ import './EmailForm.scss';
 
 const EmailForm = (props) => {
 
-     const { currentEmail, setShowModal } = props;
+     const { currentEmail, setShowModal, refetch } = props;
 
      const [updateUser] = useMutation(UPDATE_USER);
 
@@ -31,6 +31,7 @@ const EmailForm = (props) => {
                          }
                     })
 
+                    refetch();
                     setShowModal(false);
 
                } catch (error) {

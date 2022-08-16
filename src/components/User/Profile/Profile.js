@@ -23,7 +23,7 @@ const Profile = (props) => {
      const [titleModal, setTitleModal] = useState('');
      const [childrenModal, setChildrenModal] = useState(null);
 
-     const { data, loading, error } = useQuery(GET_USER, {
+     const { data, loading, error, refetch } = useQuery(GET_USER, {
           variables: { username }
      });
      // result -> Cuando se monta el componente por primera vez data => undefined 
@@ -52,6 +52,7 @@ const Profile = (props) => {
                          setTitleModal={setTitleModal}
                          setChildrenModal={setChildrenModal}
                          getUser={getUser}
+                         refetch={refetch}
                     />);
                     setShowModal(true);
                     break;
