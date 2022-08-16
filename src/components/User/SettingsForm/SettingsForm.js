@@ -13,14 +13,15 @@ const SettingsForm = ({ setShowModal, setTitleModal, setChildrenModal, getUser, 
      const history = useHistory();
      const client = useApolloClient();
      const { logout } = useAuth();
+     
 
      // Funcion para actualizar el modal y mostrar el nuevo comp. para cambiar password
      const onChangePassword = () => {
           setTitleModal('Cambiar tu contraseña'); /* Titulo del modal */
           setChildrenModal( /* Hijo, todas las opciones del modal */
                < PasswordForm logout={onLogout} />
-          )
-     }
+          );
+     };
 
      const onChangeEmail = () => {
           setTitleModal('Cambiar email'); /* Titulo del modal */
@@ -30,25 +31,25 @@ const SettingsForm = ({ setShowModal, setTitleModal, setChildrenModal, getUser, 
                     currentEmail={getUser.email}
                     refetch={refetch}
                />
-          )
-     }
+          );
+     };
 
      const onChangeDescription = () => {
           setTitleModal('Cambiar la bibliografia'); /* Titulo del modal */
-          setChildrenModal( /* Hijo, todas las opciones del modal */
+          setChildrenModal( 
                < DescriptionForm
                     setShowModal={setShowModal}
-                    currentDescription=''
+                    currentDescription={getUser.description}
                     refetch={refetch}
                />
-          )
-     }
+          );
+     };
 
      const onLogout = () => {
           client.clearStore();
           logout();
           history.push('/');
-     }
+     };
 
      return (
           <div className='settings-form'>

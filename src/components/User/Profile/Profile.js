@@ -34,6 +34,9 @@ const Profile = (props) => {
 
      const { getUser } = data;
 
+     // console.log(data)
+     // console.log(getUser);
+
      // FUNCION PARA HACER EL MODAL DINAMICO
      // Se necesitaran 3 estados => Titulo del avatar - children del modal - setearModal
 

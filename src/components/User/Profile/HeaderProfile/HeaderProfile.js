@@ -6,7 +6,7 @@ const HeaderProfile = (props) => {
 
      const { getUser, auth, handlerModal } = props;
 
-     console.log(auth);
+     // console.log(auth);
 
      return (
           <div className='header-profile'>
