@@ -51,6 +51,7 @@ const Profile = (props) => {
                          setShowModal={setShowModal}
                          setTitleModal={setTitleModal}
                          setChildrenModal={setChildrenModal}
+                         getUser={getUser}
                     />);
                     setShowModal(true);
                     break;

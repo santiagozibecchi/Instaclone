@@ -7,7 +7,7 @@ import PasswordForm from '../PasswordForm';
 import EmailForm from '../EmailForm';
 import './SettingsForm.scss';
 
-const SettingsForm = ({ setShowModal, setTitleModal, setChildrenModal }) => {
+const SettingsForm = ({ setShowModal, setTitleModal, setChildrenModal, getUser }) => {
 
      const history = useHistory();
      const client = useApolloClient();
@@ -24,7 +24,7 @@ const SettingsForm = ({ setShowModal, setTitleModal, setChildrenModal }) => {
      const onChangeEmail = () => {
           setTitleModal('Cambiar email'); /* Titulo del modal */
           setChildrenModal( /* Hijo, todas las opciones del modal */
-               < EmailForm setShowModal={setShowModal} />
+               < EmailForm setShowModal={setShowModal} currentEmail={getUser.email} />
           )
      }
 
