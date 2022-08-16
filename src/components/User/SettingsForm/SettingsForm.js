@@ -5,6 +5,7 @@ import { useApolloClient } from '@apollo/client'
 import useAuth from '../../../hooks/useAuth';
 import PasswordForm from '../PasswordForm';
 import EmailForm from '../EmailForm';
+import DescriptionForm from '../DescriptionForm';
 import './SettingsForm.scss';
 
 const SettingsForm = ({ setShowModal, setTitleModal, setChildrenModal, getUser, refetch }) => {
@@ -32,6 +33,17 @@ const SettingsForm = ({ setShowModal, setTitleModal, setChildrenModal, getUser, 
           )
      }
 
+     const onChangeDescription = () => {
+          setTitleModal('Cambiar la bibliografia'); /* Titulo del modal */
+          setChildrenModal( /* Hijo, todas las opciones del modal */
+               < DescriptionForm
+                    setShowModal={setShowModal}
+                    currentDescription=''
+                    refetch={refetch}
+               />
+          )
+     }
+
      const onLogout = () => {
           client.clearStore();
           logout();
@@ -43,7 +55,7 @@ const SettingsForm = ({ setShowModal, setTitleModal, setChildrenModal, getUser, 
 
                <Button onClick={onChangePassword}>Cambiar Contraseña</Button>
                <Button onClick={onChangeEmail}>Cambiar Email</Button>
-               <Button >Cambiar Descripción</Button>
+               <Button onClick={onChangeDescription}>Cambiar Descripción</Button>
                <Button >Sitio Web</Button>
                <Button onClick={onLogout}>Cerrar Sesion</Button>
                <Button onClick={() => setShowModal(false)}>Cancelar</Button>
