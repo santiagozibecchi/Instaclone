@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Search as SearchSU } from 'semantic-ui-react';
+import { Search as SearchSU, Image } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import { size } from 'lodash'; /* para ver el tamanio de un array */
 import { useQuery } from '@apollo/client';
-import { SEARCH } from '../../../gql/user'
+import { SEARCH } from '../../../gql/user';
+import ImageNoFound from '../../../assets/png/avatar.png';
 import './Search.scss';
 
 const Search = () => {
@@ -51,6 +53,12 @@ const Search = () => {
           }
      }
 
+     // Funcion para limpiar el resultado
+     const heandlerResultSelect = () => {
+          setSearch(null);
+          setResults([]);
+     }
+
      return (
           <SearchSU
                className="search-users"
@@ -59,22 +67,25 @@ const Search = () => {
                loading={loading}
                value={search || ''} /* valor que esta escribiendo el usuario por pantalla, si search es null aplica el string vacio */
                onSearchChange={onChange}
+               onResultSelect={heandlerResultSelect}
                results={results}
                resultRenderer={(e) => <ResultSearch data={e} />}
           />
-
      )
 }
 
 function ResultSearch(props) {
      const { data } = props;
 
-     console.log(data);
 
      return (
-          <div>
-               <h2>Hola mundo</h2>
-          </div>
+          <Link className='search-users__item' to={`/${data.username}`}>
+               <Image src={data.avatar || ImageNoFound} />
+               <div>
+                    <p>{data.title}</p>
+                    <p>{data.username}</p>
+               </div>
+          </Link>
      )
 }
 
