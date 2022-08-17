@@ -20,7 +20,7 @@ const SitioWebForm = ({ setShowModal, currentWebSite, refetch }) => {
           }),
           onSubmit: async (formData) => {
 
-               console.log(formData);
+               // console.log(formData);
 
                try {
 
@@ -45,6 +45,7 @@ const SitioWebForm = ({ setShowModal, currentWebSite, refetch }) => {
           <Form className='website-form' onSubmit={formik.handleSubmit}>
 
                <Form.Input
+                    placeholder='Sitio Web'
                     name='siteWeb'
                     value={formik.values.siteWeb}
                     onChange={formik.handleChange}
