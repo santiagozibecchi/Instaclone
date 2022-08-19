@@ -6,6 +6,16 @@ export const IS_FOLLOW = gql`
    }
 `;
 
+export const GET_FOLLOWERS = gql`
+   query getFollowers($username: String!) {
+      getFollowers(username: $username) {
+         username
+         name
+         avatar
+      }
+   }
+`;
+
 export const FOLLOW = gql`
    mutation follow($username: String!) {
       follow(username: $username)

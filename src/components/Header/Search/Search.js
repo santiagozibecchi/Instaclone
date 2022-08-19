@@ -17,7 +17,7 @@ const Search = () => {
           variables: { search }
      });
 
-     console.log(results)
+     // console.log(results)
 
      useEffect(() => {
 
