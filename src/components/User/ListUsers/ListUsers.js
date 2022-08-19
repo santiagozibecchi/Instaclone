@@ -1,5 +1,7 @@
 import React from "react";
 import { size, map } from "lodash";
+import { Image } from "semantic-ui-react";
+import ImageNoFound from "../../../assets/png/avatar.png";
 import "./ListUsers.scss";
 
 const ListUsers = ({ users, setShowModal }) => {
@@ -11,8 +13,12 @@ const ListUsers = ({ users, setShowModal }) => {
             </p>
          ) : (
             map(users, (user, index) => (
-               <div key={index}>
-                  <h2>{user.name}</h2>
+               <div key={index} className="list-users__user">
+                  <Image src={user.avatar || ImageNoFound} avatar />
+                  <div>
+                     <p>{user.name}</p>
+                     <p>{user.username}</p>
+                  </div>
                </div>
             ))
          )}
