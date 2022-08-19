@@ -3,13 +3,14 @@ import { size } from "lodash";
 import { useQuery } from "@apollo/client";
 import { GET_FOLLOWERS } from "../../../../gql/follow";
 import ModalBasic from "../../../Modal/ModalBasic";
+import ListUsers from "../../ListUsers";
 import "./Followers.scss";
 
 const Followers = (props) => {
    const { username } = props;
 
    const [showModal, setShowModal] = useState(false);
-   const [titleModal, setTitleModal] = useState('');
+   const [titleModal, setTitleModal] = useState("");
    const [childrenModal, setchildrenModal] = useState(null);
 
    const {
@@ -31,13 +32,15 @@ const Followers = (props) => {
 
    // La siguiente linea de codigo es para garantizar que la peticion ya haya terminado y poder traer la inf correctamente, caso contrario la app se rompe xd!
    if (loadingFollowers) return null;
-   const { getFollowers } = dataFollowers;
+   const { getFollowers } = dataFollowers; /* array de usuarios seguidos */
 
    const openFollowers = () => {
-      setTitleModal('seguidores');
-      setchildrenModal(<div><h3>Lista de seguidores</h3></div>);
+      setTitleModal("seguidores");
+      setchildrenModal(
+         <ListUsers users={getFollowers} setShowModal={setShowModal} />
+      );
       setShowModal(true);
-   }
+   };
 
    return (
       <>
@@ -53,7 +56,7 @@ const Followers = (props) => {
             </p>
          </div>
          <ModalBasic show={showModal} setShow={setShowModal} title={titleModal}>
-            <h2>Usuarios</h2>
+            {childrenModal}
          </ModalBasic>
       </>
    );
