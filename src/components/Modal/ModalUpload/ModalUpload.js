@@ -1,13 +1,15 @@
 import React, { useCallback, useState } from "react";
-import { Modal, Icon, Button, Loader } from "semantic-ui-react";
+import { Modal, Icon, Button, Loader, Dimmer } from "semantic-ui-react";
 import { useDropzone } from "react-dropzone";
 import { PUBLISH } from "../../../gql/publication";
 import { useMutation } from "@apollo/client";
+import { toast } from "react-toastify";
 import "./ModalUpload.scss";
 
 const ModalUpload = ({ show, setShow }) => {
    // Estado para mostrar la imagen subida al cliente
    const [fileUpload, setFileUpload] = useState(null);
+   const [isLoading, setIsLoading] = useState(false);
    const [publish] = useMutation(PUBLISH);
 
    // lugar donde llega la img donde el usuario la sube
@@ -33,20 +35,30 @@ const ModalUpload = ({ show, setShow }) => {
 
    // Funcion para cerrar el modal
    const onClose = () => {
+      setIsLoading(false);
+      setFileUpload(null); /* limpiamos el estado*/
       setShow(false);
    };
 
-   const onPublish = async() => {
+   const onPublish = async () => {
       try {
+         setIsLoading(true);
          const result = await publish({
             variables: {
-               file: fileUpload.file
-            }
-         })
+               file: fileUpload.file,
+            },
+         });
 
-         console.log(result)
+         const { data } = result;
+
+         if (!data.publish.status) {
+            toast.warning("Error en la publicacion");
+            isLoading(false);
+         } else {
+            onClose();
+         }
       } catch (error) {
-         console.log(error)
+         console.log(error);
       }
    };
 
@@ -77,6 +89,12 @@ const ModalUpload = ({ show, setShow }) => {
             <Button className="btn-upload btn-action" onClick={onPublish}>
                Publicar
             </Button>
+         )}
+         {isLoading && (
+            <Dimmer active className="publishing">
+               <Loader />
+               <p>Publicando...</p>
+            </Dimmer>
          )}
       </Modal>
    );
