@@ -1,11 +1,14 @@
 import React, { useCallback, useState } from "react";
 import { Modal, Icon, Button, Loader } from "semantic-ui-react";
 import { useDropzone } from "react-dropzone";
+import { PUBLISH } from "../../../gql/publication";
+import { useMutation } from "@apollo/client";
 import "./ModalUpload.scss";
 
 const ModalUpload = ({ show, setShow }) => {
    // Estado para mostrar la imagen subida al cliente
    const [fileUpload, setFileUpload] = useState(null);
+   const [publish] = useMutation(PUBLISH);
 
    // lugar donde llega la img donde el usuario la sube
    const onDrop = useCallback((acceptedFile) => {
@@ -33,6 +36,20 @@ const ModalUpload = ({ show, setShow }) => {
       setShow(false);
    };
 
+   const onPublish = async() => {
+      try {
+         const result = await publish({
+            variables: {
+               file: fileUpload.file
+            }
+         })
+
+         console.log(result)
+      } catch (error) {
+         console.log(error)
+      }
+   };
+
    return (
       <Modal size="tiny" open={show} onClose={onClose} className="modal-upload">
          <div
@@ -55,6 +72,11 @@ const ModalUpload = ({ show, setShow }) => {
                   backgroundImage: `url('${fileUpload.preview}')`,
                }}
             />
+         )}
+         {fileUpload && (
+            <Button className="btn-upload btn-action" onClick={onPublish}>
+               Publicar
+            </Button>
          )}
       </Modal>
    );
