@@ -38,6 +38,8 @@ const ModalUpload = ({ show, setShow }) => {
       setIsLoading(false);
       setFileUpload(null); /* limpiamos el estado*/
       setShow(false);
+      // hace que la pagina se recargue
+      window.location.reload();
    };
 
    const onPublish = async () => {
