@@ -13,7 +13,7 @@ import Followers from "./Followers";
 import "./Profile.scss";
 
 const Profile = (props) => {
-   const { username } = props;
+   const { username, totalPublications } = props;
 
    // Hay que comprobar si el usuario logeado esta viendo su perfil o esta viendo otro !!!
    // Para obtener los datos del usuario logeado
@@ -89,7 +89,10 @@ const Profile = (props) => {
                   auth={auth}
                />{" "}
                {/* Informacion del usuario */}
-               <Followers username={username} />
+               <Followers
+                  username={username}
+                  totalPublications={totalPublications}
+               />
                <div className="other">
                   <p className="name">{getUser.name}</p>
                   {getUser.siteWeb && (
