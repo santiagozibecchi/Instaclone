@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_PUBLICATION } from "../gql/publication";
@@ -14,9 +14,20 @@ import Publications from "../components/Publications";
 const User = () => {
    const { username } = useParams();
 
-   const { data, loading } = useQuery(GET_PUBLICATION, {
-      variables: { username },
-   });
+   const { data, loading, startPolling, stopPolling } = useQuery(
+      GET_PUBLICATION,
+      {
+         variables: { username },
+      }
+   );
+
+   useEffect(() => {
+      startPolling(1000);
+
+      return () => {
+         stopPolling();
+      };
+   }, [startPolling, stopPolling]);
 
    if (loading) return null;
    const { getPublications } = data;
