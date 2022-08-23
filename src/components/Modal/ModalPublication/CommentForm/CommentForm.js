@@ -2,9 +2,13 @@ import React from "react";
 import { Form, Button } from "semantic-ui-react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useMutation } from "@apollo/client";
+import { ADD_COMMENT } from "../../../../gql/comment";
 import "./CommentForm.scss";
 
 const CommentForm = ({ publication }) => {
+   const [addComment] = useMutation(ADD_COMMENT);
+
    const formik = useFormik({
       initialValues: {
          comment: "",
@@ -12,8 +16,20 @@ const CommentForm = ({ publication }) => {
       validationSchema: Yup.object({
          comment: Yup.string().required(),
       }),
-      onSubmit: (formData) => {
-         console.log(formData);
+      onSubmit: async (formData) => {
+         try {
+            await addComment({
+               variables: {
+                  input: {
+                     idPublication: publication.id,
+                     comment: formData.comment,
+                  },
+               },
+            });
+            formik.handleReset();
+         } catch (error) {
+            console.log(error);
+         }
       },
    });
 
