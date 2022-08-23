@@ -1,4 +1,8 @@
 import React from "react";
+import { Image } from "semantic-ui-react";
+import { map } from "lodash";
+import { Link } from "react-router-dom";
+import ImageNoFound from "../../../../assets/png/avatar.png";
 import { useQuery } from "@apollo/client";
 import { GET_COMMENTS } from "../../../../gql/comment";
 import "./Comments.scss";
@@ -11,12 +15,25 @@ const Comments = ({ publication }) => {
    });
 
    if (loading) return null;
-
    const { getComments } = data;
-   console.log(getComments)
+
    return (
-      <div>
-         <h3>Comments</h3>
+      <div className="comments">
+         {map(getComments, (comment, index) => (
+            <>
+               <Link
+                  className="comment"
+                  key={index}
+                  to={`/${comment.idUser.username}`}
+               >
+                  <Image src={comment.idUser.avatar || ImageNoFound} avatar />
+                  <div>
+                     <p>{comment.idUser.username}</p>
+                     <p>{comment.comment}</p>
+                  </div>
+               </Link>
+            </>
+         ))}
       </div>
    );
 };
