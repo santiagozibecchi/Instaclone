@@ -1,14 +1,19 @@
-import React from 'react';
-import './Home.scss';
+import React from "react";
+import { Grid } from "semantic-ui-react";
+import "./Home.scss";
 
 const Home = () => {
+   return (
+      <Grid className="home">
+         <Grid.Column className="home__left" width={11}>
+            <h2>Feed</h2>
+         </Grid.Column>
 
+         <Grid.Column className="home__right" width={5}>
+            <h2>Usuarios no seguidos</h2>
+         </Grid.Column>
+      </Grid>
+   );
+};
 
-     return (
-          <div>
-               <h1>estamos en la Home</h1>
-          </div>
-     )
-}
-
-export default Home
+export default Home;

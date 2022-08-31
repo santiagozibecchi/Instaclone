@@ -3,20 +3,16 @@ import { Container } from "semantic-ui-react";
 import Header from "../components/Header";
 
 const LayoutBasic = (props) => {
-     // console.log(props) -> Componente de React
+   // console.log(props) -> Componente de React
 
-     const { children } = props;
+   const { children } = props;
 
+   return (
+      <>
+         <Header />
+         <Container className="layout-basic">{children}</Container>
+      </>
+   );
+};
 
-     return (
-
-          <>
-               <Header />
-               <Container className="layout-basic">
-                    {children}
-               </Container>
-          </>
-     )
-}
-
-export default LayoutBasic
+export default LayoutBasic;
