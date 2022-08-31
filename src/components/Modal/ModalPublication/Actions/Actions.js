@@ -25,6 +25,10 @@ const Actions = ({ publication }) => {
       }
    };
 
+   const onDeleteLike = async () => {
+      console.log("eleminar like");
+   };
+
    // Para que espere el resultado antes de esperar el corazon
    // En otras palabras, primero comprueba si ha dado like y despues muestrame el corazon
    if (loading) return null;
@@ -36,7 +40,7 @@ const Actions = ({ publication }) => {
          <Icon
             className={isLike ? "like active" : "like"}
             name={isLike ? "heart" : "heart outline"}
-            onClick={onAddLike}
+            onClick={isLike ? onDeleteLike : onAddLike}
          />
          30 Likes
       </div>
