@@ -37,3 +37,13 @@ export const UN_FOLLOW = gql`
       unFollow(username: $username)
    }
 `;
+
+export const GET_NOT_FOLLOWEDS = gql`
+   query getNotFolloweds {
+      getNotFolloweds {
+         username
+         name
+         avatar
+      }
+   }
+`;
