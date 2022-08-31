@@ -5,7 +5,7 @@ import { ADD_LIKE, IS_LIKE } from "../../../../gql/like";
 import "./Actions.scss";
 
 const Actions = ({ publication }) => {
-   const { data, loading } = useQuery(IS_LIKE, {
+   const { data, loading, refetch } = useQuery(IS_LIKE, {
       variables: {
          idPublication: publication.id,
       },
@@ -20,6 +20,7 @@ const Actions = ({ publication }) => {
                idPublication: publication.id,
             },
          });
+         refetch();
       } catch (error) {
          console.log(error);
       }
