@@ -4,7 +4,9 @@ import { map } from "lodash";
 import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_PUBLICATIONS_FOLLOWEDS } from "../../../gql/publication";
+import Action from "../../Modal/ModalPublication/Actions";
 import ImageNotFound from "../../../assets/png/avatar.png";
+import CommentForm from "../../Modal/ModalPublication/CommentForm";
 import "./Feed.scss";
 
 const Feed = () => {
@@ -31,6 +33,12 @@ const Feed = () => {
                   className="feed__box-photo"
                   style={{ backgroundImage: `url(${publication.file})` }}
                />
+               <div className="feed__box-actions">
+                  <Action publication={publication} />
+               </div>
+               <div className="feed__box-form">
+                  <CommentForm publication={publication} />
+               </div>
             </div>
          ))}
       </div>

@@ -38,5 +38,19 @@
             filter: brightness(110%);
          }
       }
+
+      &-actions {
+         padding: 5px 5px;
+
+         i {
+            margin-right: 10px !important;
+         }
+      }
+
+      &-form {
+         > form {
+            position: relative !important;
+         }
+      }
    }
 }
