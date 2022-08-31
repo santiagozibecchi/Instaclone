@@ -26,5 +26,17 @@
             font-weight: bold;
          }
       }
+
+      &-photo {
+         height: 600px;
+         background-position: center;
+         background-repeat: no-repeat;
+         background-size: cover;
+
+         &:hover {
+            cursor: pointer;
+            filter: brightness(110%);
+         }
+      }
    }
 }

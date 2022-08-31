@@ -21,12 +21,16 @@ const Feed = () => {
                <Link to={`/${publication.idUser.username}`}>
                   <div className="feed__box-user">
                      <Image
-                        src={(publication.idUser.avatar || ImageNotFound)}
+                        src={publication.idUser.avatar || ImageNotFound}
                         avatar
                      />
                      <span>{publication.idUser.name}</span>
                   </div>
                </Link>
+               <div
+                  className="feed__box-photo"
+                  style={{ backgroundImage: `url(${publication.file})` }}
+               />
             </div>
          ))}
       </div>
