@@ -1,5 +1,5 @@
 import React from "react";
-import { Imagen } from "semantic-ui-react";
+import { Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { map } from "lodash";
 import { useQuery } from "@apollo/client";
@@ -15,8 +15,18 @@ const UsersNotFolloweds = () => {
    console.log(getNotFolloweds);
 
    return (
-      <div>
-         <h2>UsersNotFolloweds</h2>
+      <div className="users-not-followeds">
+         <h3>Usuarios que te podrian interesar</h3>
+         {map(getNotFolloweds, (user, index) => (
+            <Link
+               to={`/${user.username}`}
+               key={index}
+               className="users-not-followeds__user"
+            >
+               <Image src={user.avatar || ImageNotFound} avatar />
+               <span>{user.name}</span>
+            </Link>
+         ))}
       </div>
    );
 };
