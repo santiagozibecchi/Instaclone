@@ -14,7 +14,17 @@ const Feed = () => {
    const [showModal, setShowModal] = useState(false);
    const [publicationSelect, setPublicationSelect] = useState(null);
 
-   const { data, loading } = useQuery(GET_PUBLICATIONS_FOLLOWEDS);
+   const { data, loading, startPolling, stopPolling } = useQuery(
+      GET_PUBLICATIONS_FOLLOWEDS
+   );
+
+   useEffect(() => {
+      startPolling(1000);
+
+      return () => {
+         stopPolling();
+      };
+   }, [startPolling, stopPolling]);
 
    if (loading) return null;
    const { getPublicationsFolloweds } = data;
