@@ -1,11 +1,26 @@
 import React from "react";
 import { Icon } from "semantic-ui-react";
 import { useMutation, useQuery } from "@apollo/client";
-import { ADD_LIKE, IS_LIKE, DELETE_LIKE } from "../../../../gql/like";
+import {
+   ADD_LIKE,
+   IS_LIKE,
+   DELETE_LIKE,
+   COUNT_LIKES,
+} from "../../../../gql/like";
 import "./Actions.scss";
 
 const Actions = ({ publication }) => {
    const { data, loading, refetch } = useQuery(IS_LIKE, {
+      variables: {
+         idPublication: publication.id,
+      },
+   });
+
+   const {
+      data: dataCount,
+      loading: loadingCount,
+      refetch: refetchCount,
+   } = useQuery(COUNT_LIKES, {
       variables: {
          idPublication: publication.id,
       },
@@ -22,6 +37,7 @@ const Actions = ({ publication }) => {
             },
          });
          refetch();
+         refetchCount();
       } catch (error) {
          console.log(error);
       }
@@ -35,6 +51,7 @@ const Actions = ({ publication }) => {
             },
          });
          refetch();
+         refetchCount();
       } catch (error) {
          console.log(error);
       }
@@ -42,9 +59,10 @@ const Actions = ({ publication }) => {
 
    // Para que espere el resultado antes de esperar el corazon
    // En otras palabras, primero comprueba si ha dado like y despues muestrame el corazon
-   if (loading) return null;
+   if (loading || loadingCount) return null;
 
    const { isLike } = data;
+   const { countLikes } = dataCount;
 
    return (
       <div className="actions">
@@ -53,7 +71,7 @@ const Actions = ({ publication }) => {
             name={isLike ? "heart" : "heart outline"}
             onClick={isLike ? onDeleteLike : onAddLike}
          />
-         30 Likes
+         {countLikes} {countLikes === 1 ? "like" : "likes"}
       </div>
    );
 };
