@@ -1,10 +1,16 @@
 import React from "react";
 import { Icon } from "semantic-ui-react";
-import { useMutation } from "@apollo/client";
-import { ADD_LIKE } from "../../../../gql/like";
+import { useMutation, useQuery } from "@apollo/client";
+import { ADD_LIKE, IS_LIKE } from "../../../../gql/like";
 import "./Actions.scss";
 
 const Actions = ({ publication }) => {
+   const { data, loading } = useQuery(IS_LIKE, {
+      variables: {
+         idPublication: publication.id,
+      },
+   });
+
    const [addLike] = useMutation(ADD_LIKE);
 
    const onAddLike = async () => {
@@ -19,9 +25,19 @@ const Actions = ({ publication }) => {
       }
    };
 
+   // Para que espere el resultado antes de esperar el corazon
+   // En otras palabras, primero comprueba si ha dado like y despues muestrame el corazon
+   if (loading) return null;
+
+   const { isLike } = data;
+
    return (
       <div className="actions">
-         <Icon className="like" name="heart" onClick={onAddLike} />
+         <Icon
+            className={isLike ? "like active" : "like"}
+            name={isLike ? "heart" : "heart outline"}
+            onClick={onAddLike}
+         />
          30 Likes
       </div>
    );

@@ -5,3 +5,9 @@ export const ADD_LIKE = gql`
       addLike(idPublication: $idPublication)
    }
 `;
+
+export const IS_LIKE = gql`
+   query isLike($idPublication: ID!) {
+      isLike(idPublication: $idPublication)
+   }
+`;
