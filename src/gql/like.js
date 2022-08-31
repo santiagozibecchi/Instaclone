@@ -11,3 +11,9 @@ export const IS_LIKE = gql`
       isLike(idPublication: $idPublication)
    }
 `;
+
+export const DELETE_LIKE = gql`
+   mutation deleteLike($idPublication: ID!) {
+      deleteLike(idPublication: $idPublication)
+   }
+`;

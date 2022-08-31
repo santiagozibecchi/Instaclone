@@ -1,7 +1,7 @@
 import React from "react";
 import { Icon } from "semantic-ui-react";
 import { useMutation, useQuery } from "@apollo/client";
-import { ADD_LIKE, IS_LIKE } from "../../../../gql/like";
+import { ADD_LIKE, IS_LIKE, DELETE_LIKE } from "../../../../gql/like";
 import "./Actions.scss";
 
 const Actions = ({ publication }) => {
@@ -12,6 +12,7 @@ const Actions = ({ publication }) => {
    });
 
    const [addLike] = useMutation(ADD_LIKE);
+   const [deleteLike] = useMutation(DELETE_LIKE);
 
    const onAddLike = async () => {
       try {
@@ -27,7 +28,16 @@ const Actions = ({ publication }) => {
    };
 
    const onDeleteLike = async () => {
-      console.log("eleminar like");
+      try {
+         await deleteLike({
+            variables: {
+               idPublication: publication.id,
+            },
+         });
+         refetch();
+      } catch (error) {
+         console.log(error);
+      }
    };
 
    // Para que espere el resultado antes de esperar el corazon
